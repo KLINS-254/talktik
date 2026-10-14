@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#101014">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="icon" href="/icons/icon-192.png" type="image/png">
+  <link rel="apple-touch-icon" href="/icons/icon-192.png">
+  <meta name="description" content="TICOH Virtual Coin Sender — a clearly labelled virtual reward demo.">
+  <title>TICOH Virtual Coin Sender</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div class="brand-mark" aria-hidden="true">T</div>
+      <div class="brand-copy">
+        <div class="eyebrow">INDEPENDENT DEMO</div>
+        <h1>TICOH <span>VIRTUAL COIN SENDER</span></h1>
+      </div>
+      <div class="top-actions"><button class="install-button" id="install-app" type="button">Install app</button><button class="icon-button" id="settings-open" aria-label="Open settings" title="Settings">⚙</button></div>
+    </header>
+
+    <main>
+      <section class="wallet panel">
+        <div class="section-kicker"><span class="live-dot"></span> VIRTUAL WALLET</div>
+        <div class="balance-label">Available demo coins</div>
+        <div class="balance-line">
+          <div class="coin-icon" aria-hidden="true"><span>♪</span></div>
+          <div id="balance" class="balance">650,668,250,123</div>
+        </div>
+        <div class="wallet-foot"><span class="tiny-lock">◇</span> Demo balance only · not TikTok Coins</div>
+      </section>
+
+      <section class="send-section panel">
+        <div class="section-heading">
+          <div>
+            <div class="section-kicker">REWARD STATION</div>
+            <h2>Send virtual coins</h2>
+          </div>
+          <span class="demo-pill">DEMO MODE</span>
+        </div>
+
+        <label for="username-search">TikTok username</label>
+        <div class="search-row">
+          <span class="search-icon" aria-hidden="true">⌕</span>
+          <input id="username-search" autocomplete="off" autocapitalize="none" spellcheck="false" placeholder="Search TikTok username" aria-describedby="profile-status">
+          <button id="clear-search" class="clear-button" aria-label="Clear username">×</button>
+        </div>
+        <div id="profile-status" class="helper-text" role="status">Enter a username. Profile details appear only when a configured lookup provider returns them.</div>
+
+        <div id="profile-card" class="profile-card hidden" aria-live="polite">
+          <div id="profile-avatar" class="avatar-fallback">?</div>
+          <div class="profile-copy">
+            <div id="profile-name" class="profile-name">Display name</div>
+            <div id="profile-handle" class="profile-handle">@username</div>
+          </div>
+          <span id="profile-verified" class="profile-check hidden" aria-label="Profile data returned">✓</span>
+        </div>
+
+        <div class="amount-heading">
+          <label for="amount">Coin amount</label>
+          <span class="amount-caption">Virtual points</span>
+        </div>
+        <div class="amount-display"><span class="amount-currency">♪</span><input id="amount" inputmode="numeric" pattern="[0-9]*" value="200" aria-label="Coin amount"></div>
+        <div class="quick-amounts" aria-label="Quick amounts">
+          <button data-amount="200">200</button>
+          <button data-amount="500">500</button>
+          <button data-amount="1000">1,000</button>
+          <button data-amount="5000">5,000</button>
+        </div>
+
+        <div class="keypad" aria-label="Numeric keypad">
+          <button data-key="1">1</button><button data-key="2">2</button><button data-key="3">3</button>
+          <button data-key="4">4</button><button data-key="5">5</button><button data-key="6">6</button>
+          <button data-key="7">7</button><button data-key="8">8</button><button data-key="9">9</button>
+          <button data-key="clear" class="key-action">Clear</button><button data-key="0">0</button><button data-key="back" class="key-action">⌫</button>
+        </div>
+
+        <div id="form-error" class="error-message hidden" role="alert"></div>
+        <button id="send-button" class="primary-button"><span>Send virtual coins</span><span aria-hidden="true">↗</span></button>
+        <p class="disclaimer">This independent demo records virtual points only. It does not send, purchase, or credit TikTok Coins.</p>
+      </section>
+
+      <section class="activity panel">
+        <div class="section-heading compact">
+          <div><div class="section-kicker">RECENT ACTIVITY</div><h2>Transaction history</h2></div>
+          <button id="clear-history" class="text-button">Clear</button>
+        </div>
+        <div id="history-list" class="history-list"><div class="empty-state">No demo transactions yet.</div></div>
+      </section>
+
+      <section class="integration-note panel">
+        <div class="note-icon">↗</div>
+        <div><strong>LIVE gift connection</strong><p>Not connected. Automatic gift detection requires a compatible event provider and backend. This page will never pretend to detect LIVE gifts unless a real integration is configured.</p></div>
+      </section>
+    </main>
+    <footer>© TICOH Virtual Coin Sender · Independent virtual-points demo</footer>
+  </div>
+
+  <div id="processing-modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="processing-title">
+    <div class="modal-card processing-card">
+      <div class="spinner"></div>
+      <div class="section-kicker">PROCESSING DEMO</div>
+      <h2 id="processing-title">Preparing virtual reward</h2>
+      <p id="processing-copy">Validating recipient and amount…</p>
+      <div class="progress-track"><div class="progress-bar"></div></div>
+      <small>No TikTok transaction is taking place.</small>
+    </div>
+  </div>
+
+  <div id="done-modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="done-title">
+    <div class="modal-card done-card">
+      <div class="success-ring"><span>✓</span></div>
+      <div class="section-kicker success-kicker">DEMO COMPLETED</div>
+      <h2 id="done-title">DONE</h2>
+      <p id="done-copy">200 demo coins simulated for @username</p>
+      <div class="done-warning">No TikTok transaction occurred.</div>
+      <button id="done-close" class="primary-button">Return to sender</button>
+    </div>
+  </div>
+
+  <div id="settings-modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="settings-title">
+    <div class="modal-card settings-card">
+      <div class="section-heading"><h2 id="settings-title">Demo settings</h2><button id="settings-close" class="icon-button" aria-label="Close settings">×</button></div>
+      <p class="settings-copy">Manage this browser's local demo data.</p>
+      <label for="starting-balance">Reset balance to</label>
+      <input id="starting-balance" class="settings-input" inputmode="numeric" value="650668250123">
+      <button id="reset-balance" class="secondary-button">Reset demo balance</button>
+      <button id="settings-clear-history" class="danger-button">Clear transaction history</button>
+      <p class="disclaimer">Settings affect only this browser. No external account is changed.</p>
+    </div>
+  </div>
+
+  <script src="/app.js" defer></script>
+  <script src="/pwa.js" defer></script>
+</body>
+</html>
